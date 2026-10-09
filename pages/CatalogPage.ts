@@ -44,4 +44,18 @@ export class CatalogPage extends BasePage {
     await expect(card).toBeVisible();
     await card.locator('.shelf-item__buy-btn').click();
   }
+
+  async expectProductImagesLoaded() {
+    const firstImage = this.page.locator('.shelf-item img').first();
+    await expect(firstImage).toBeVisible();
+    await expect(firstImage).toHaveAttribute('src', /.+/);
+  }
+
+  async expectBrokenProductImages() {
+    const images = this.page.locator('.shelf-item img');
+    await expect(images.first()).toBeVisible();
+    // For image_not_loading_user, the image elements have an empty src attribute
+    await expect(images.first()).toHaveAttribute('src', '');
+  }
 }
+

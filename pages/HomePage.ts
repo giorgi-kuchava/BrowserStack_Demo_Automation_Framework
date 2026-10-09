@@ -21,4 +21,15 @@ export class HomePage extends BasePage {
     await this.searchInput.fill(query);
     await this.searchButton.click();
   }
+
+  async goToOrders() {
+    await this.page.locator('#orders').click();
+    await expect(this.page).toHaveURL(/.*\/orders/);
+  }
+
+  async goToFavourites() {
+    await this.page.locator('#favourites').click();
+    await expect(this.page).toHaveURL(/.*\/favourites/);
+  }
 }
+

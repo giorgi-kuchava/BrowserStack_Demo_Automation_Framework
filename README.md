@@ -15,7 +15,7 @@
 
 ## 👋 About This Project
 
-This is a TypeScript test automation framework built around **Playwright**, **TypeScript**, **Page Object Model (POM)** architecture, and **Playwright HTML Reporting**, structured for robust cross-browser end-to-end testing. It covers authentication, catalog browsing, shopping bag, filtering, sorting, validation, and accessibility test suites for [BrowserStack Demo](https://bstackdemo.com/), with CI/CD wired up through **GitHub Actions**.
+This is a TypeScript test automation framework built around **Playwright**, **TypeScript**, **Page Object Model (POM)** architecture, and **Playwright HTML Reporting**, structured for robust cross-browser end-to-end testing. It covers user personas, authentication, catalog browsing, shopping bag, order history, wishlists/favourites, filtering, sorting, validation, and accessibility test suites for [BrowserStack Demo](https://bstackdemo.com/), with CI/CD wired up through **GitHub Actions**.
 
 ---
 
@@ -41,9 +41,12 @@ playwright/
 │   ├── HomePage.ts
 │   ├── LoginPage.ts
 │   ├── CatalogPage.ts
-│   └── ShoppingCartPage.ts
+│   ├── ShoppingCartPage.ts
+│   ├── OrdersPage.ts
+│   └── FavouritesPage.ts
 ├── tests/
 │   └── e2e/
+│       ├── user-personas.spec.ts
 │       ├── auth.spec.ts
 │       ├── happy-path.spec.ts
 │       ├── edge-cases.spec.ts
@@ -120,15 +123,21 @@ npm run test:webkit
 Run single test file:
 
 ```bash
-npx playwright test tests/e2e/auth.spec.ts
+npx playwright test tests/e2e/user-personas.spec.ts
 ```
 
 ---
 
 ## ✅ Current Test Coverage
 
-The suite includes smoke, regression, validation, and accessibility tests for:
+The suite includes smoke, regression, persona-specific, validation, and accessibility tests for:
 
+- **User Personas & Account States**:
+  - `image_not_loading_user`: Verifies fallback handling for missing/empty product image sources.
+  - `existing_orders_user`: Validates historical placed order records, items, and recipient metadata.
+  - `fav_user`: Validates pre-populated wishlist items and adding favourites directly to the cart.
+  - `demouser`: Baseline standard user with full loaded images and clean history.
+  - `locked_user`: Validates locked account security blocking.
 - **Customer Authentication**:
   - Valid login & logout flows (`demouser`)
   - Locked account detection & validation (`locked_user`)
